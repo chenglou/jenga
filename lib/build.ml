@@ -498,9 +498,9 @@ let remove_stale_artifact : (
     (* Dont remove non-local stale build artifacts
        We no longer allow (api.ml) rules to be created with non-local targets.
        But jenga.db might have been created by ealier version of jenga which did. *)
-    if not (Path.(dirname path = dir)) then (
+    (* if not (Path.(dirname path = dir)) then (
       Deferred.return ()
-    ) else
+    ) else *)
       try_with (fun () -> Sys.remove path_string) >>= function
       | Ok () ->
         if Config.show_actions_run t.config then (
@@ -1454,11 +1454,11 @@ let check_for_non_local_rules ~dir ~targets =
   with
   | [] -> return ()
   | _::_ as non_local_targets ->
-    error (Reason.Misc (
+    (* error (Reason.Misc (
       sprintf "non-local rule-targets generated for directory: [%s] - %s"
         (Path.to_string dir)
         (String.concat ~sep:" " (List.map non_local_targets ~f:Path.to_string))
-    ))
+    )) *)return ()
 
 (*----------------------------------------------------------------------
  dependent schemes
