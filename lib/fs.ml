@@ -79,7 +79,7 @@ module Ensure_directory_result = struct
 end
 
 let ensure_directory ~dir =
-  stat ~follow_symlinks:false dir >>= function
+  stat ~follow_symlinks:true dir >>= function
   | `ok stats -> return (if is_dir stats then `ok else `not_a_dir)
   | `unknown_error err -> return (`failed err)
   | `does_not_exist ->
