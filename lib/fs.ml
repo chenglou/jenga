@@ -587,7 +587,9 @@ end = struct
           )
           *>>= fun link_destination ->
           let dir = Path.dirname path in
-          stat (Path.relative_or_absolute ~dir link_destination)
+          (* stat (Path.relative_or_absolute ~dir link_destination) *)
+          let abs_dir = Path.absolute (Path.to_absolute_string dir) in
+          stat (Path.relative_or_absolute ~dir:abs_dir link_destination)
 
     (* Depends on inode across the symlinks *)
     and uncached_inode x : Inode_result.t Or_error.t Tenacious.t =
